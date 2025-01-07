@@ -1,0 +1,5 @@
+/DOSSEG /CPA:1000 /SEG:1024 /E+
+ main.obj +
+ errors.obj
+kernel.exe
+NUL;

@@ -1,0 +1,25 @@
+#======================================================================#
+#  Digital Notepad Computer Company. 2024-2025. All rights reserved.   #
+#    Makefile for StellarGIM Kernel                                    #
+#  Date Created: Jan 4,2025                                            #
+#======================================================================#
+
+#******************* Makefile for KERNEL\... *******************#
+
+msg = ..\MESSAGES
+inc = ..\INC
+
+##################### Dependencies Begin here #####################
+
+all: kernel.exe
+
+# handle first the ".C"
+
+main.obj : main.c \
+           errors.h
+
+errors.obj : errors.c \
+             errors.h
+
+kernel.exe : main.obj errors.obj
+         link @kernel.lnk
