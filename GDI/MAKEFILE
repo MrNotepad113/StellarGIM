@@ -1,10 +1,10 @@
 #======================================================================#
 #  Digital Notepad Computer Company. 2024-2025. All rights reserved.   #
-#    Makefile for StellarGIM Kernel                                    #
+#    Makefile for StellarGIM GDI (Graphical Device Interface)          #
 #  Date Created: Jan 4,2025                                            #
 #======================================================================#
 
-#******************* Makefile for KERNEL\... *******************#
+#******************* Makefile for GDI\... *******************#
 
 msg = ../MESSAGES
 inc = ../inc
@@ -12,15 +12,11 @@ dos = ../system
 
 ##################### Dependencies Begin here #####################
 
-all: kernel.exe
+all: gdi.exe
 
-# handle first the ".C"
+# handle first the ".ASM"
 
-main.obj : main.c \
-           errors.h
+hello.obj : hello.asm
 
-errors.obj : errors.c \
-             errors.h
-
-kernel.exe : main.obj errors.obj
-         link @kernel.lnk
+gdi.exe : hello.obj
+         link @gdi.lnk
