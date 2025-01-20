@@ -1,4 +1,4 @@
-		TITLE GDI.ASM
+       TITLE GDI.ASM
 ;
 ; Copyright (c) 2024-2025, Digital Notepad Computer Company
 ;

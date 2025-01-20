@@ -5,6 +5,8 @@ make	=nmake
 all:
 	cd kernel
 	$(make)
+	cd ..\gdi
+	$(make)
 	cd ..
 
 

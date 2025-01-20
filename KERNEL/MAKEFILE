@@ -14,7 +14,9 @@ dos = ../system
 
 all: kernel.exe
 
-# handle first the ".C"
+# handle first the assembly
+
+# then the ".C"
 
 main.obj : main.c \
            errors.h

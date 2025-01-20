@@ -14,7 +14,7 @@ dos = ../system
 
 all: gdi.exe
 
-# handle first the ".ASM"
+# handle first the assembly
 
 hello.obj : hello.asm
 
