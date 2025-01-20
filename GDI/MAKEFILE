@@ -16,7 +16,7 @@ all: gdi.exe
 
 # handle first the assembly
 
-hello.obj : hello.asm
+gdi.obj : gdi.asm
 
-gdi.exe : hello.obj
+gdi.exe : gdi.obj
          link @gdi.lnk
