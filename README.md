@@ -13,7 +13,7 @@ StellarGIM uses a modular architecture inspired by early windowing systems, cons
 - **User**: Implements the user interface layer and window management
 
 ## Development Status
-This project is currently under development, very early development. currently working on the **Kernel**. first trying to do it on C, and later remake the code on ASM.
+This project is currently under development, very early development. some components will be first made on C, and later shrinking the code down (mostly by converting it from C to assembly to meet the memory limitations of early IBM PCs).
 
 ## License
 StellarGIM is released under the GNU General Public License, version 2 or later. For more information, see the COPYING file in the root of the repository.
