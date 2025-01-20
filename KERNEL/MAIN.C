@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "errors.h"
+#include <version.h>
 
 #define MAX_CMD_LENGTH 100
 
@@ -19,7 +20,7 @@ int main() {
     int i;
 
     printf("Digital Notepad Computer Company (R) Stellar Graphical Interface Manager (R)\n");
-    show_version();
+    printf("Version %s : Pre-Alpha Release 1\n", VER_PRODUCTVERSION_STR);
     printf("INTERNAL DEVELOPER PREVIEW - UNAUTHORIZED USE IS NOT PERMITED\n");
     printf("Copyright (c) DNC Company. 2024-2025. All rights reserved.\n");
 
@@ -65,7 +66,7 @@ void show_help() {
 }
 
 void show_version() {
-    printf("Version 0.0.2 : Pre-Alpha Release 1\n");
+    printf("Version %d.%d (Build %d: Pre-Alpha Release 1)\n", VER_PRODUCTVERSION);
 }
 
 void greet_user(const char *name) {
