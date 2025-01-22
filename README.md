@@ -12,6 +12,21 @@ StellarGIM uses a modular architecture inspired by early windowing systems, cons
 - **GDI (Graphical Device Interface)**: Provides device-independent graphics rendering
 - **User**: Implements the user interface layer and window management
 
+## **Target Requirements**
+
+### **Hardware Requirements**
+- **IBM XT or AT**: Compatibility with IBM's early personal computers.
+- **512 KB of Memory**: Minimum required RAM.
+- **Floppy Disk Drive**: Configured as `DRIVE A:`.
+- **Hard Disk Drive**: Configured as `DRIVE C:`.
+- **Color Graphics Card**: Support for color graphics (e.g., CGA or compatible).
+- **External Console**: Connected to `COM1:` for debugging purposes.
+- **Microsoft Mouse**: Requires a bus or serial interface mouse.
+- **Timer**: Support for a system clock or additional timing hardware.
+
+### **Software Requirements**
+- **MS-DOS**: Version **2.x** or **3.0**.
+
 ## Development Status
 This project is currently under development, very early development. some components will be first made on C, for later the C code will be converted to assembly to meet the memory limitations of early IBM PCs.
 
