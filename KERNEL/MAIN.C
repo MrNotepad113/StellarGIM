@@ -25,7 +25,7 @@ int main() {
     printf("Copyright (c) DNC Company. 2024-2025. All rights reserved.\n");
 
     while (1) {
-        printf("$ ");
+        printf(">");
         fgets(command, MAX_CMD_LENGTH, stdin);
         command[strcspn(command, "\n")] = 0;
 
