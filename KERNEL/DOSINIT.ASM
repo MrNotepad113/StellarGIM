@@ -20,12 +20,9 @@ CODE   segment
 START:
        mov    ax, seg DATA
 	   mov    ds, ax
-	   
-if KDEBUG
 	   mov    dx, offset STRING
 	   mov    ah, 9
 	   int    21h
-endif
 	   mov    ah, 4Ch
 	   int    21h
 CODE   ends
