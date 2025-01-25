@@ -16,6 +16,7 @@ MAX_CMD_LENGTH    EQU     100
 PROMPT            DB      '>$'
 COMMAND_BUFFER    DB      MAX_CMD_LENGTH + 2 DUP(?)  ; DOS input buffer format
 EXIT_CMD          DB      'exit', 0
+EXIT_MSG          DB      'Exiting the Kernel. Returning to DOS$'
 DATA   ENDS
 
 CODE   SEGMENT
@@ -103,7 +104,21 @@ STRCMP_END:
        pop    ax
        ret
 
-EXIT_SHELL:
+EXIT_SHELL:	   
+       ; Display exit message
+       mov    dx, OFFSET EXIT_MSG
+       mov    ah, 09h
+       int    21h	   
+	   
+	   ; Print newline
+       mov    dl, 13
+       mov    ah, 02h
+       int    21h
+       mov    dl, 10
+       mov    ah, 02h
+       int    21h
+	   
+	   ; Exit to DOS
        mov    ah, 4Ch
        int    21h
 
