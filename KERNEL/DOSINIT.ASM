@@ -16,7 +16,11 @@ MAX_CMD_LENGTH    EQU     100
 PROMPT            DB      '>$'
 COMMAND_BUFFER    DB      MAX_CMD_LENGTH + 2 DUP(?)  ; DOS input buffer format
 EXIT_CMD          DB      'exit', 0
+HELP_CMD          DB      'help', 0
 EXIT_MSG          DB      'Exiting the Kernel. Returning to DOS$'
+HELP_MSG          DB      'Available commands:',13,10
+                  DB      '  help         - Show this help message',13,10
+                  DB      '  exit         - Exit the Debug CLI$'
 DATA   ENDS
 
 CODE   SEGMENT
@@ -40,7 +44,7 @@ START:
 	   mov    ax, SEG DATA
        mov    ds, ax
 
-SHELL_LOOP:
+MAIN_LOOP:
        ; Display prompt
        mov    dx, OFFSET PROMPT
        mov    ah, 09h
@@ -64,7 +68,7 @@ SHELL_LOOP:
        mov    si, OFFSET COMMAND_BUFFER + 1
        mov    al, [si]      ; Length of input
        cmp    al, 0
-       je     SHELL_LOOP    ; Skip empty input
+       je     MAIN_LOOP    ; Skip empty input
 
        ; Null-terminate input
        cbw
@@ -76,9 +80,14 @@ SHELL_LOOP:
        mov    si, OFFSET COMMAND_BUFFER + 2
        mov    di, OFFSET EXIT_CMD
        call   STRCMP
-       jz     EXIT_SHELL
-
-       jmp    SHELL_LOOP
+       jz     EXIT_KERNEL
+       ; Check for 'help' command
+       mov    si, OFFSET COMMAND_BUFFER + 2
+       mov    di, OFFSET HELP_CMD
+       call   STRCMP
+       jz     HELP_KERNEL
+	   
+       jmp    MAIN_LOOP
 
 ; String comparison routine
 ; SI = first string, DI = second string
@@ -104,7 +113,21 @@ STRCMP_END:
        pop    ax
        ret
 
-EXIT_SHELL:	   
+HELP_KERNEL:
+       ; Display help message
+       mov    dx, OFFSET HELP_MSG
+       mov    ah, 09h
+       int    21h
+       ; Print newline
+       mov    dl, 13
+       mov    ah, 02h
+       int    21h
+       mov    dl, 10
+       mov    ah, 02h
+       int    21h
+       jmp    MAIN_LOOP
+
+EXIT_KERNEL:	   
        ; Display exit message
        mov    dx, OFFSET EXIT_MSG
        mov    ah, 09h
