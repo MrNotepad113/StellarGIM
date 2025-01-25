@@ -22,7 +22,21 @@ CODE   SEGMENT
        ASSUME cs:CODE, ds:DATA, ss:STACK
 
 START:
-       mov    ax, SEG DATA
+       ; Clears the screen before START
+	   mov    ax, 0600h     ; Scroll window up
+	   mov    bh, 07h       ; Normal video attribute
+	   mov    cx, 0000h     ; Top left corner
+	   mov    dx, 184Fh     ; Bottom right corner
+	   int    10h
+	   
+	   ; Move cursor to top left
+	   mov    ah, 02h
+	   mov    bh, 0
+	   mov    dx, 0
+	   int    10h
+	   
+	   ; Data Segments
+	   mov    ax, SEG DATA
        mov    ds, ax
 
 SHELL_LOOP:

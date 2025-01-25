@@ -21,5 +21,5 @@
 
 #define VERSION					"0.0"
 #define VER_PRODUCTVERSION_STR	"0.0\0"
-#define VER_PRODUCTVERSION		0,00,3
+#define VER_PRODUCTVERSION		0,00,5
 

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "errors.h"
 #include <version.h>
+#include <dos.h>
 
 #define MAX_CMD_LENGTH 100
 
@@ -13,12 +14,14 @@ void exit_program();
 void show_version();
 void run_diagnostics();
 void check_cpu();
+void clear_screen();
 
 int main() {
     char command[MAX_CMD_LENGTH];
     char *args[10];
     int i;
 
+	clear_screen();
     printf("Digital Notepad Computer Company (R) Stellar Graphical Interface Manager (R)\n");
     printf("Version %s : Pre-Alpha Release 1\n", VER_PRODUCTVERSION_STR);
     printf("INTERNAL DEVELOPER PREVIEW - UNAUTHORIZED USE IS NOT PERMITED\n");
@@ -63,6 +66,7 @@ void show_help() {
     printf("  greet <name> - Greet the user with their name\n");
     printf("  exit         - Exit the CLI\n");
     printf("  diag         - Run system diagnostics\n");
+	printf("  gditst       - Test and check the GDI.EXE\n");
 }
 
 void show_version() {
@@ -87,4 +91,23 @@ void check_cpu() {
     printf("Checking CPU type...\n");
 	print_error(ERR_DIAG_FAIL);
     printf("Unknown or unsupported CPU detected.\n");
+}
+
+void clear_screen() {
+    union REGS regs;
+
+    // Clear screen using scroll window up (int 10h, function 06h)
+    regs.h.ah = 0x06;     // Function: Scroll up
+    regs.h.al = 0x00;     // Clear entire screen
+    regs.h.bh = 0x07;     // Attribute: Normal video
+    regs.x.cx = 0x0000;   // Top-left corner
+    regs.x.dx = 0x184F;   // Bottom-right corner (80x25 screen)
+    int86(0x10, &regs, &regs);
+
+    // Move cursor to top-left (int 10h, function 02h)
+    regs.h.ah = 0x02;     // Function: Set cursor position
+    regs.h.bh = 0x00;     // Page number
+    regs.h.dh = 0x00;     // Row
+    regs.h.dl = 0x00;     // Column
+    int86(0x10, &regs, &regs);
 }
