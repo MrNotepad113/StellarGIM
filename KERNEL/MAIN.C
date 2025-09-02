@@ -15,6 +15,7 @@ void show_version();
 void run_diagnostics();
 void check_cpu();
 void clear_screen();
+void launch_gdi();
 
 int main() {
     char command[MAX_CMD_LENGTH];
@@ -51,6 +52,8 @@ int main() {
             show_version();
         } else if (strcmp(args[0], "diag") == 0) {
             run_diagnostics();
+        } else if (strcmp(args[0], "gditst") == 0) {
+            launch_gdi();
         } else {
             print_error(ERR_INVALID_CMD);
         }
@@ -70,7 +73,9 @@ void show_help() {
 }
 
 void show_version() {
-    printf("Version %d.%d (Build %d: Pre-Alpha Release 1)\n", VER_PRODUCTVERSION);
+    printf("Version %s (Build %d: Pre-Alpha Release 1)\n", 
+           VERSION, 
+           VER_PRODUCTBUILD);
 }
 
 void greet_user(const char *name) {
@@ -110,4 +115,22 @@ void clear_screen() {
     regs.h.dh = 0x00;     // Row
     regs.h.dl = 0x00;     // Column
     int86(0x10, &regs, &regs);
+}
+
+void launch_gdi() {
+	union REGS regs;
+    printf("Launching Graphical Display Interface...\n");
+        
+    // Prepare for DOS EXEC function (4Bh)
+    regs.h.ah = 0x4B;    // EXEC function
+    regs.h.al = 0x00;    // Load and execute
+    regs.x.dx = (unsigned int)"GDI.EXE";  // Filename
+    regs.x.bx = (unsigned int)"";         // Command line (empty)
+    
+    int86(0x21, &regs, &regs);
+    
+    // Check carry flag for error
+    if (regs.x.cflag) {
+        print_error(ERR_MISSING_FILE);
+    }
 }
