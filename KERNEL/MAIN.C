@@ -54,7 +54,27 @@ int main() {
             run_diagnostics();
         } else if (strcmp(args[0], "gditst") == 0) {
             launch_gdi();
-        } else {
+        } else if (strcmp(args[0], "echo") == 0) {
+			if (i > 1) {
+				// Print everything after "echo"
+				int j;
+				for (j = 1; j < i; j++) {
+					printf("%s ", args[j]);
+				}
+				printf("\n");
+			} else {
+				printf("\n");
+			}
+		} else if (strcmp(args[0], "memtest") == 0) {
+			char *buffer = (char *) malloc(256);
+			if (buffer == NULL) {
+				printf("Memory allocation failed!\n");
+			} else {
+				strcpy(buffer, "StellarGIM memory allocation test successful.");
+				printf("%s\n", buffer);
+				free(buffer);
+			}
+		} else {
             print_error(ERR_INVALID_CMD);
         }
     }
@@ -70,6 +90,8 @@ void show_help() {
     printf("  exit         - Exit the CLI\n");
     printf("  diag         - Run system diagnostics\n");
 	printf("  gditst       - Test and check the GDI.EXE\n");
+	printf("  memtest      - Test memory allocation\n");
+	printf("  echo         - Print a given text\n");
 }
 
 void show_version() {
